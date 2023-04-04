@@ -6,10 +6,11 @@ favor of running a mountain goats farm with his newly wedded wife. A lot of chan
 the project on time without his valuable contributions.
 
 
-'As I took charge of the project, being closer to the tibet region, I can really connect with Gabriel journey & how far & disconnect he will be.
-With a lot best wishes to his spiritual journey, I  felt a deep emotional connection to his pursuit of happiness and fulfillment, and understood 
-that his decision to follow his heart was not one made lightly. I was highly motivated to deliver the project on time and to the highest possible 
-quality so that Gabriel could focus on enjoying his new journey without any worries'. 
+**_Having a personal connection to the Tibet region, I deeply resonate with Gabriel's transformative journey and understand how disconnected he might feel from the digital realm.
+I wholeheartedly send my best wishes to him as he embarks on his spiritual path. Driven by a profound emotional connection to his pursuit of happiness and fulfillment, 
+I recognize that Gabriel's decision was not taken lightly. As I assume responsibility for the project, I am highly motivated to deliver it on time and with the utmost quality. 
+My goal is to ensure that Gabriel can wholly immerse himself in his new life without any concerns, knowing that his vision for the User Profile API has been brought to fruition.**_
+
 
 ## Project domain
 
