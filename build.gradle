@@ -54,6 +54,13 @@ jacocoTestCoverageVerification {
     }
 }
 
+// ...
+
+run {
+    args = ['server', 'src/main/resources/properties.yml']
+}
+
+
 dependencies {
     implementation platform('io.dropwizard:dropwizard-bom:2.1.6')
     implementation 'io.dropwizard:dropwizard-testing'
