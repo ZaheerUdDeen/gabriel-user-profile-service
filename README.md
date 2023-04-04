@@ -6,10 +6,10 @@ favor of running a mountain goats farm with his newly wedded wife. A lot of chan
 the project on time without his valuable contributions.
 
 
-**_Having a personal connection to the Tibet region, I deeply resonate with Gabriel's transformative journey and understand how disconnected he might feel from the digital realm.
+**Having a personal connection to the Tibet region, I deeply resonate with Gabriel's transformative journey and understand how disconnected he might feel from the digital realm.
 I wholeheartedly send my best wishes to him as he embarks on his spiritual path. Driven by a profound emotional connection to his pursuit of happiness and fulfillment, 
 I recognize that Gabriel's decision was not taken lightly. As I assume responsibility for the project, I am highly motivated to deliver it on time and with the utmost quality. 
-My goal is to ensure that Gabriel can wholly immerse himself in his new life without any concerns, knowing that his vision for the User Profile API has been brought to fruition.**_
+My goal is to ensure that Gabriel can wholly immerse himself in his new life without any concerns, knowing that his vision for the User Profile API has been brought to fruition.**
 
 
 ## Project domain
