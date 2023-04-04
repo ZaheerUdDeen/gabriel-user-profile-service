@@ -5,6 +5,12 @@ Unfortunately for us, Gabriel got spontaneously married during his spiritual jou
 favor of running a mountain goats farm with his newly wedded wife. A lot of changes for the good for Gabriel, but we still have to deliver
 the project on time without his valuable contributions.
 
+
+'As I took charge of the project, being closer to the tibet region, I can really connect with Gabriel journey & how far & disconnect he will be.
+With a lot best wishes to his spiritual journey, I  felt a deep emotional connection to his pursuit of happiness and fulfillment, and understood 
+that his decision to follow his heart was not one made lightly. I was highly motivated to deliver the project on time and to the highest possible 
+quality so that Gabriel could focus on enjoying his new journey without any worries'. 
+
 ## Project domain
 
 The idea of the User Profile API is to accept commands from various sources and update the user profile according to them. The user profile
