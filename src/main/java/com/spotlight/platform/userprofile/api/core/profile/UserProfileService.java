@@ -59,7 +59,7 @@ public class UserProfileService {
     }
 
 
-    private UserProfile runCommandOnUserProfile(UserProfile userProfile, UserCommandDto userCommandDto) {
+    public UserProfile runCommandOnUserProfile(UserProfile userProfile, UserCommandDto userCommandDto) {
 
         switch (UserCommandDto
                 .CommandType.valueOf(userCommandDto.getType())) {
