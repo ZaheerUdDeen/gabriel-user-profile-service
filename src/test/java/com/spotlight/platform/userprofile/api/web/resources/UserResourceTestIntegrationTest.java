@@ -104,7 +104,7 @@ class UserResourceTestIntegrationTest {
 
 
         @Test
-        void invalidCommandFormatInput_returns400(ClientSupport client) {
+        void invalidIncrementCommandFormatInput_returns400(ClientSupport client) {
             UserCommandDto command = new UserCommandDto();
 
             // Set valid properties for the command object
@@ -113,6 +113,26 @@ class UserResourceTestIntegrationTest {
             HashMap<String, Object> properties = new HashMap<>();
             properties.put("battleFought", "ten");
             properties.put("questsNotCompleted", -1);
+            command.setProperties(properties);
+
+
+            var response = client.targetRest()
+                    .path(URL)
+                    .request()
+                    .post(Entity.json(command));
+
+            assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST_400);
+        }
+
+        @Test
+        void invalidCollectCommandFormatInput_returns400(ClientSupport client) {
+            UserCommandDto command = new UserCommandDto();
+
+            // Set valid properties for the command object
+            command.setType("collect");
+            command.setUserId("de4310e5-b139-441a-99db-77c9c4a5fada");
+            HashMap<String, Object> properties = new HashMap<>();
+            properties.put("inventory", "sword1");
             command.setProperties(properties);
 
 
