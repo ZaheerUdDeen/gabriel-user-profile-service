@@ -21,6 +21,7 @@ import java.time.ZoneOffset;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestDropwizardApp(value = UserProfileApiApplication.class, randomPorts = true)
 
@@ -32,6 +33,32 @@ class UserProfileServiceTest {
 //    @InjectMocks
 //    UserProfileService userProfileService;
 
+
+    @Test
+    void runCommandOnUserProfile_replaceCommand_ProfileNoPresent(UserProfileService userProfileService, UserProfileDao userProfileDao) {
+        String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
+        Map<UserProfilePropertyName, UserProfilePropertyValue> userProperties = new HashMap<>();
+        userProperties.put(UserProfilePropertyName.valueOf("currentGold"), UserProfilePropertyValue.valueOf(200));
+        UserProfile newUserProfile  = new UserProfile(UserId.valueOf(USER_ID), LocalDateTime.MAX.toInstant(ZoneOffset.UTC), userProperties);
+
+        userProfileDao.put(newUserProfile);
+
+
+        UserCommandDto userCommandDto = new UserCommandDto();
+        // Set valid properties for the command object
+        userCommandDto.setType("replace");
+        userCommandDto.setUserId(USER_ID);
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("currentGold", 500);
+        userCommandDto.setProperties(properties);
+
+
+         userProfileService.update(userCommandDto);
+
+        UserProfile updatedUserProfile = userProfileService.get(UserId.valueOf(USER_ID));
+
+        assertEquals(UserProfilePropertyValue.valueOf(500), updatedUserProfile.userProfileProperties().get(UserProfilePropertyName.valueOf("currentGold")));
+    }
     @Test
     void runCommandOnUserProfile_replaceCommand(UserProfileService userProfileService, UserProfileDao userProfileDao) {
         String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
@@ -117,30 +144,28 @@ class UserProfileServiceTest {
 
         assertEquals(Boolean.TRUE, invenotryList.contains("sword3") );
     }
-//
-//    @Test
-//    void runCommandOnUserProfile_collectCommand() {
-//        UserProfile userProfile = /* Initialize a UserProfile instance with somePropertyName having a list value */;
-//        UserCommandDto userCommandDto = new UserCommandDto();
-//        userCommandDto.setType("collect");
-//        Map<String, Object> properties = new HashMap<>();
-//        properties.put("somePropertyName", List.of("newValue1", "newValue2"));
-//        userCommandDto.setProperties(properties);
-//
-//        UserProfile updatedUserProfile = userProfileService.runCommandOnUserProfile(userProfile, userCommandDto);
-//
-//        assertEquals(/* The updated list */, updatedUserProfile.userProfileProperties().get(/* The key corresponding to somePropertyName */));
-//    }
-//
-//    @Test
-//    void runCommandOnUserProfile_invalidCommand() {
-//        UserProfile userProfile = /* Initialize a UserProfile instance */;
-//        UserCommandDto userCommandDto = new UserCommandDto();
-//        userCommandDto.setType("invalidCommand");
-//        Map<String, Object> properties = new HashMap<>();
-//        properties.put("somePropertyName", "newValue");
-//        userCommandDto.setProperties(properties);
-//
-//        assertThrows(IllegalStateException.class, () -> userProfileService.runCommandOnUserProfile(userProfile, userCommandDto));
-//    }
+
+    @Test
+    void runCommandOnUserProfile_invalidCommand(UserProfileService userProfileService, UserProfileDao userProfileDao) {
+        String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
+        Map<UserProfilePropertyName, UserProfilePropertyValue> userProperties = new HashMap<>();
+        userProperties.put(UserProfilePropertyName.valueOf("currentGold"), UserProfilePropertyValue.valueOf(200));
+        UserProfile newUserProfile  = new UserProfile(UserId.valueOf(USER_ID), LocalDateTime.MAX.toInstant(ZoneOffset.UTC), userProperties);
+
+        userProfileDao.put(newUserProfile);
+
+
+        UserCommandDto userCommandDto = new UserCommandDto();
+        // Set valid properties for the command object
+        userCommandDto.setType("replacement");
+        userCommandDto.setUserId(USER_ID);
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("currentGold", 500);
+        userCommandDto.setProperties(properties);
+
+        UserProfile userProfile = userProfileService.get(UserId.valueOf(USER_ID));
+
+
+        assertThrows(IllegalArgumentException.class, () -> userProfileService.runCommandOnUserProfile(userProfile, userCommandDto));
+    }
 }

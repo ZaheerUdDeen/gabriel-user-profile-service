@@ -61,8 +61,7 @@ public class UserProfileService {
 
     public UserProfile runCommandOnUserProfile(UserProfile userProfile, UserCommandDto userCommandDto) {
 
-        switch (UserCommandDto
-                .CommandType.valueOf(userCommandDto.getType())) {
+        switch (UserCommandDto.CommandType.valueOf(userCommandDto.getType())) {
             case replace -> {
 
                 userCommandDto.getProperties().forEach((userProfileKey, useProfilePropertyValue) -> {
@@ -125,9 +124,7 @@ public class UserProfileService {
                 return  userProfile;
             }
 
-            default -> {
-                throw new IllegalStateException("Unexpected value: " + userCommandDto.getType());
-            }
         }
+        return null;
     }
 }
