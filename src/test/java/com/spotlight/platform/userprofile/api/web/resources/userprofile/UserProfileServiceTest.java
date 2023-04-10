@@ -112,6 +112,34 @@ class UserProfileServiceTest {
     }
 
     @Test
+    void runCommandOnUserProfile_incrementCommand_withNewProperty(UserProfileService userProfileService, UserProfileDao userProfileDao) {
+        String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
+        Map<UserProfilePropertyName, UserProfilePropertyValue> userProperties = new HashMap<>();
+        userProperties.put(UserProfilePropertyName.valueOf("battleFought"), UserProfilePropertyValue.valueOf(10));
+        userProperties.put(UserProfilePropertyName.valueOf("questsNotCompleted"), UserProfilePropertyValue.valueOf(1));
+        UserProfile newUserProfile  = new UserProfile(UserId.valueOf(USER_ID), LocalDateTime.MAX.toInstant(ZoneOffset.UTC), userProperties);
+
+        userProfileDao.put(newUserProfile);
+
+
+        UserCommandDto userCommandDto = new UserCommandDto();
+        // Set valid properties for the command object
+        userCommandDto.setType("increment");
+        userCommandDto.setUserId(USER_ID);
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("battleFought", 10);
+        properties.put("questsNotCompleted", -1);
+        properties.put("battleWin", 1);
+        userCommandDto.setProperties(properties);
+
+        UserProfile userProfile = userProfileService.get(UserId.valueOf(USER_ID));
+
+        UserProfile updatedUserProfile = userProfileService.runCommandOnUserProfile(userProfile, userCommandDto);
+
+        assertEquals(UserProfilePropertyValue.valueOf(1), updatedUserProfile.userProfileProperties().get(UserProfilePropertyName.valueOf("battleWin")));
+    }
+
+    @Test
     void runCommandOnUserProfile_collectCommand(UserProfileService userProfileService, UserProfileDao userProfileDao) {
         String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
         Map<UserProfilePropertyName, UserProfilePropertyValue> userProperties = new HashMap<>();
@@ -145,6 +173,41 @@ class UserProfileServiceTest {
         assertEquals(Boolean.TRUE, invenotryList.contains("sword3") );
     }
 
+
+    @Test
+    void runCommandOnUserProfile_collectCommand_WithNewProperty(UserProfileService userProfileService, UserProfileDao userProfileDao) {
+        String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
+        Map<UserProfilePropertyName, UserProfilePropertyValue> userProperties = new HashMap<>();
+        List<String> inventory = new ArrayList<>();
+        inventory.add("sword1");
+        inventory.add("sword2");
+        inventory.add("shield1");
+
+        userProperties.put(UserProfilePropertyName.valueOf("inventory"), UserProfilePropertyValue.valueOf(inventory));
+        UserProfile newUserProfile  = new UserProfile(UserId.valueOf(USER_ID), LocalDateTime.MAX.toInstant(ZoneOffset.UTC), userProperties);
+
+        userProfileDao.put(newUserProfile);
+
+
+        UserCommandDto userCommandDto = new UserCommandDto();
+        // Set valid properties for the command object
+        userCommandDto.setType("collect");
+        userCommandDto.setUserId(USER_ID);
+        HashMap<String, Object> properties = new HashMap<>();
+        List<String> kidsInventory = new ArrayList<>();
+        kidsInventory.add("kit1");
+        properties.put("kits", kidsInventory);
+
+        userCommandDto.setProperties(properties);
+
+        UserProfile userProfile = userProfileService.get(UserId.valueOf(USER_ID));
+
+        UserProfile updatedUserProfile = userProfileService.runCommandOnUserProfile(userProfile, userCommandDto);
+        UserProfilePropertyValue updateInventory = updatedUserProfile.userProfileProperties().get(UserProfilePropertyName.valueOf("kits"));
+        List<String> kitList = (List<String>) updateInventory.getValue();
+
+        assertEquals(Boolean.TRUE, kitList.contains("kit1") );
+    }
     @Test
     void runCommandOnUserProfile_invalidCommand(UserProfileService userProfileService, UserProfileDao userProfileDao) {
         String USER_ID = "de4310e5-b139-441a-99db-77c9c4a5fada";
